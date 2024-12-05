@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="row">
         <SideBar/>
-          <RouterView/>
+        <RouterView/>
       </div>
   </div>
 </template>

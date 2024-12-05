@@ -39,12 +39,14 @@
 </template>
 
 <script>
+import { storage } from '@/utils/localStorage'
+
   export default {
     data(){
       return{
         error:'',
         message:'',
-        posts:JSON.parse(sessionStorage.getItem('posts')),
+        posts:storage.get('posts'),
         post:{
           id:null,
           title:'',
@@ -62,7 +64,7 @@
             this.error ='';
             this.message='Tạo blog thành công.'
             this.posts.push(this.post);
-            sessionStorage.setItem('posts',JSON.stringify(this.posts))
+            storage.set('posts',this.posts)
          }
       },
     },

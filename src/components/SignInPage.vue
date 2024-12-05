@@ -46,6 +46,7 @@
 </template>
 
 <script>
+import { storage } from '@/utils/localStorage';
 export default {
     data(){
         return{
@@ -54,7 +55,8 @@ export default {
                 username:'',
                 password:'',
                 email:''
-            }
+            },
+            users:storage.get('users'),
         }
     },
     methods:{
@@ -63,10 +65,30 @@ export default {
                 this.error ='Vui lòng điền đủ thông tin !'
                 return;
             }
+            
+            /*Check tồn tại email*/
+            if(this.users.some(user=>{
+                console.log(user.emai+' ||'+this.user.email)
+                return user.email === this.user.email;
+            })){
+                this.error ='Email đã tồn tại !'
+                return;
+            }
+            /*Check tồn tại username*/
+            if(this.users.some(user=>{
+                console.log(user.emai+' ||'+this.user.email)
+                return user.username === this.user.username;
+            })){
+                this.error ='Username đã tồn tại !'
+                return;
+            }
+            this.users.push(this.user);
+            storage.set('users',this.users);
             sessionStorage.setItem('user',JSON.stringify(this.user));
+            alert('Đăng kí thành công')
             this.$router.push({name:'Login'})
-        }
-    }
+        },
+    },
 }
 </script>
 

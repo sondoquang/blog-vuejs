@@ -57,6 +57,7 @@
 </template>
 
 <script>
+    import { sessStr }from '@/utils/sessionStorage'
     export default {
         data(){
             return{
@@ -64,7 +65,7 @@
                 message:'',
                 newPass:'',
                 confirmPass:'',
-                user:JSON.parse(sessionStorage.getItem('user'))
+                user:sessStr.get('user')
             }
         },
         methods:{
@@ -76,7 +77,7 @@
                     this.error ='';
                     this.message ='Đổi mật khẩu thành công .'
                     this.user.password = this.newPass;
-                    sessionStorage.setItem('user',JSON.stringify(this.user));
+                    sessStr.set('user',this.user);
                     this.newPass ='';
                     this.confirmPass ='';
                 }

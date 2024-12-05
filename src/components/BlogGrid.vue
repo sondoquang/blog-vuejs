@@ -45,16 +45,17 @@
 </template>
 
 <script>
+import { storage } from '@/utils/localStorage';
+
 export default {
     data(){
       return{
         username:'',
-        posts:JSON.parse(sessionStorage.getItem('posts')),
+        posts:storage.get('posts'),
       }
     },
     methods:{
       forwardDetailBlog(index){
-        console.log(index);
         this.$router.push({name:'BlogDetail', params:{id:index}})
       }
     }

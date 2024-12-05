@@ -1,5 +1,5 @@
 <template>
-  <section class="col-sm-10 p-5 ps-2">
+  <section class="col-sm-10 p-5 ps-2" @load="fillDatas">
     <!-- Blog list -->
     <div class="row">
       <h3 class="pb-4">Blog List</h3>
@@ -99,16 +99,12 @@
 </template>
 
 <script>
-  import image1 from '../assets/imgs/post/1.jpg'
-  import image2 from '../assets/imgs/post/2.jpg'
-  import image3 from '../assets/imgs/post/3.jpg'
-  import image4 from '../assets/imgs/post/7.jpg'
-  import image5 from '../assets/imgs/post/5.jpg'
+  import { storage } from '@/utils/localStorage'
   export default {
     data(){
       return{
         username:'',
-        posts:JSON.parse(sessionStorage.getItem('posts')),
+        posts:storage.get('posts')
       }
     },
     methods:{
@@ -116,56 +112,7 @@
         this.$router.push({name:'BlogDetail', params:{id:index}})
       }
     },
-    mounted(){
-            // Kiểm tra nếu sessionStorage chưa có blogs, thì set giá trị mặc định
-            if (!sessionStorage.getItem('posts')) {
-            const posts = [ 
-                {
-                    id:1,
-                    title: 'The Most Advance Business Plan',
-                    image: image1,
-                    category: 'Entertainment',
-                    content: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem of letters, as opposed to using Content here, content here, making it look like readable English.",
-                    date: new Date().toLocaleDateString()
-                },
-                {
-                    id:2,
-                    title: 'WTCR from 2018: new rules, more cars, more races',
-                    image: image2,
-                    category: 'Entertainment',
-                    content: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem of letters, as opposed to using Content here, content here, making it look like readable English.",
-                    date: new Date().toLocaleDateString()
-                },
-                {
-                    id:3,
-                    title: 'The Most Advance Business PlanAll photographs are accurate. None of them is the truth',
-                    image: image3,
-                    category: 'Entertainment',
-                    content: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock.",
-                    date: new Date().toLocaleDateString()
-                },
-                {
-                    id:4,
-                    title: 'The Most Advance Business PlanAll photographs are accurate. None of them is the truth',
-                    image: image4,
-                    category: 'Entertainment',
-                    content: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock.",
-                    date: new Date().toLocaleDateString()
-                },
-                {
-                    id:5,
-                    title: 'The Most Advance Business PlanAll photographs are accurate. None of them is the truth',
-                    image: image5,
-                    category: 'Entertainment',
-                    content: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock.",
-                    date: new Date().toLocaleDateString()
-                }
-            ]
-            // Lưu vào sessionStorage dưới dạng JSON
-            sessionStorage.setItem('posts', JSON.stringify(posts));
-            }
-        }
-  };
+  }
 </script>
 
 <style>

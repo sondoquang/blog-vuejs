@@ -15,7 +15,7 @@ const routes = [
         component:BlogGrid,
     },
     {
-        path: '/blog-grid:id',
+        path: '/blog-grid/:id',
         name:'BlogDetail',
         component:BlogDetail,
     },
@@ -62,9 +62,10 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    const user = sessionStorage.getItem('user');
-    if (to.matched.some(record => record.meta.requiresAuth) && user == null) {
-        sessionStorage.setItem('nameUri',to.name);
+    const user = JSON.parse(sessionStorage.getItem('user'));
+    console.log(user.username)
+    if (to.matched.some(record => record.meta.requiresAuth) && !user.username) {
+        sessionStorage.setItem('nameUri',JSON.stringify(to.name));
         next ({ name: 'Login' }); // Redirect to login if not authenticated
     } else {
         next (); // Proceed to the route
